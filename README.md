@@ -1,12 +1,14 @@
 # Metronome
 A simple metronome made with Qt and Juce
 
+
 ## Dependencies
 CMake: https://cmake.org/<br>
 Qt:    https://www.qt.io/<br>
 Juce:  https://github.com/WeAreROLI/JUCE (included)<br>
 
 Linux only: ALSA Development headers (libasound2-dev on Ubuntu)
+
 
 ## Building
 
@@ -22,5 +24,6 @@ cmake --build .
 ```
 
 
-
+## License
+GPL-3.0
 
