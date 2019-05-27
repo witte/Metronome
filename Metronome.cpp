@@ -25,6 +25,7 @@ void Metronome::prepareToPlay (int samplesPerBlockExpected, double sampleRate) n
         m_sampleRate = sampleRate;
         calcCurrentSampleWithinPulse();
     }
+
     String message;
     message << "sampleRate is: " << sampleRate << newLine;
     message << "Block size is: " << samplesPerBlockExpected << newLine;
@@ -39,8 +40,7 @@ void Metronome::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) n
     int samplesPerClick = m_samplesPerClick.load();
 
     if ( (currentSample >= 1334) &&
-         (currentSample + bufferToFill.numSamples < samplesPerClick)
-       )
+         (currentSample + bufferToFill.numSamples < samplesPerClick) )
     {
         m_currentSample.store(currentSample + bufferToFill.numSamples);
         return;
@@ -81,22 +81,22 @@ void Metronome::setIsPLaying (bool isPlaying)
     m_isPlaying = isPlaying;
     if (m_isPlaying)
     {
-        m_currentSample = 0;
-        m_signalClick = true;
+        m_currentSample = m_samplesPerClick + 1;
         m_timerId = startTimer (m_interval, Qt::PreciseTimer);
     }
     else
     {
         killTimer (m_timerId);
     }
+
     emit isPlayingChanged (m_isPlaying);
 }
 
 void Metronome::setBpm (double bpm)
 {
     if (qFuzzyCompare (m_bpm, bpm)) return;
-    if (bpm > m_maxBpm) bpm = m_maxBpm;
     if (bpm < m_minBpm) bpm = m_minBpm;
+    if (bpm > m_maxBpm) bpm = m_maxBpm;
 
     m_bpm = bpm;
     emit bpmChanged (m_bpm);
