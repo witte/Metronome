@@ -34,8 +34,8 @@
 #define JUCE_WASAPI                                     0
 #define JUCE_WASAPI_EXCLUSIVE                           0
 #define JUCE_DIRECTSOUND                                0
-//#define JUCE_ALSA                                       1
-//#define JUCE_ALSA_MIDI_NAME                             "Metronome"
+#define JUCE_ALSA                                       1
+#define JUCE_ALSA_MIDI_NAME                             "Metronome"
 #define JUCE_JACK                                       0
 #define JUCE_JACK_CLIENT_NAME                           "Metronome"
 #define JUCE_BELA                                       0
@@ -45,7 +45,7 @@
 
 // juce_core flags:     ====================================
 #define DEBUG                                           0
-#define JUCE_DEBUG                                      0
+//#define JUCE_DEBUG                                      0
 #define JUCE_FORCE_DEBUG                                0
 #define JUCE_LOG_ASSERTIONS                             0
 #define JUCE_CHECK_MEMORY_LEAKS                         0
