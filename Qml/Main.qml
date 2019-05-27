@@ -78,30 +78,19 @@ Window
         property double block1: width / 3
         property double block2: block1 * 2
 
-        property int lastBlock: 1
+        property int    currentBlock: 1
+        property double currentBlockMultiplier: 1
         property double lastBlockY: 0
         property double lastBlockBpm: 120
-        property double lastBlockMultiplier: 1
 
         onPressed:
         {
-            lastBlockY = mouse.y
+            isDragging = false
 
-            if (mouse.x <= block1)
-            {
-                lastBlock = 1
-                lastBlockMultiplier = 1
-            }
-            else if (mouse.x <= block2)
-            {
-                lastBlock = 2
-                lastBlockMultiplier = 1
-            }
-            else
-            {
-                lastBlock = 3
-                lastBlockMultiplier = 0.1
-            }
+            lastBlockY = mouse.y
+            lastBlockBpm = metronome.bpm
+
+            currentBlock = -1
         }
 
         onPositionChanged:
@@ -110,41 +99,36 @@ Window
 
             if (mouse.x <= block1)
             {
-                lastBlock = 1
+                currentBlock = 1
                 lastBlockY = mouse.y
                 lastBlockBpm = (max - ((max - min) * mouse.y / height)).toFixed (0)
-                lastBlockMultiplier = 1
+                currentBlockMultiplier = 1
 
                 metronome.bpm = lastBlockBpm
             }
-            else //if (mouse.x <= block2)
+            else
             {
-                let currentBlock = (mouse.x <= block2)? 2 : 3
+                let curBlock = (mouse.x <= block2)? 2 : 3
 
-                if (currentBlock !== lastBlock)
+                if (curBlock !== currentBlock)
                 {
+                    currentBlock = curBlock
                     lastBlockY = mouse.y
                     lastBlockBpm = metronome.bpm
-                    lastBlock = currentBlock
-                    lastBlockMultiplier = (currentBlock === 2)? 1 : 0.1
+                    currentBlockMultiplier = (currentBlock === 2)? 1 : 0.1
                 }
 
-                metronome.bpm = lastBlockBpm + (Number ( (10 * (lastBlockY - mouse.y) / height).toFixed (0) ) * lastBlockMultiplier)
+                metronome.bpm = lastBlockBpm + (Number ( (10 * (lastBlockY - mouse.y) / height).toFixed (0) ) * currentBlockMultiplier)
             }
-       }
-
-        onReleased:
-        {
-            if (!isDragging) metronome.isPlaying = !metronome.isPlaying
-
-            isDragging = false
-
-            lastBlock = 1
-            lastBlockBpm = metronome.bpm
         }
+
+        onReleased: if (!isDragging) metronome.isPlaying = !metronome.isPlaying
+
+        onWheel: metronome.bpm += Number ( (wheel.pixelDelta.y * -0.05).toFixed (1) )
 
         Text
         {
+            id: txtBpm
             anchors.horizontalCenter: parent.horizontalCenter
             text: metronome.bpm.toFixed (2)
             color: "#fff"
