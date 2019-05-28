@@ -7,42 +7,35 @@ matrix:
       compiler: clang
       sudo: required
       dist: xenial
-      env: BUILD_TYPE=Release
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - ninja-build
+            - libgl-dev
+            - libasound2-dev
+      env: 
+        - MATRIX_EVAL="CC=clang && CXX=clang++ && BUILD_TYPE=Release"
     
     - os: osx
       compiler: clang
       sudo: required
-      env: BUILD_TYPE=Release QT_PATH=-DCMAKE_PREFIX_PATH=/usr/local/opt/qt5
+      env: 
+        - MATRIX_EVAL="BUILD_TYPE=Release && QT_PATH=-DCMAKE_PREFIX_PATH=/usr/local/opt/qt5"
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - ninja-build
-      - libgl-dev
-      - libasound2-dev
-#      - gcc-8
-#      - g++-8
 
 before_install:
+  - eval "${MATRIX_EVAL}"
+
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  sudo add-apt-repository ppa:beineri/opt-qt-5.11.1-xenial -y                    ; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  sudo apt-get update -qq                                                        ; fi
-#  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  sudo apt-get install -y libasound2-dev                                         ; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  sudo apt-get install -qq qt511base qt511multimedia qt511translations qt511tools; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  source /opt/qt511/bin/qt511-env.sh                                             ; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  export QTHOME=/opt/qt511                                                       ; fi
 
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install qt5 ninja; fi
 
-
-install:
-  # cmake on linux
-#  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  curl -o cmake.tar.gz -O https://cmake.org/files/v3.12/cmake-3.12.3-Linux-x86_64.tar.gz; fi
-#  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  mkdir /opt/cmake                                                                      ; fi
-#  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  tar -xf cmake.tar.gz -C /opt/cmake --strip-components=1                               ; fi
-#  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  rm -f cmake.tar.gz                                                                    ; fi
-#  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  export PATH=/opt/cmake/bin:${PATH}                                                    ; fi
 
 before_script:
   - mkdir build
