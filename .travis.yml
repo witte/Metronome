@@ -6,13 +6,13 @@ matrix:
     - os: linux
       compiler: clang
       sudo: required
-      dist: trusty
-      env: CXX_COMPILER=g++-8 C_COMPILER=gcc-8 BUILD_TYPE=Release
+      dist: xenial
+      env: BUILD_TYPE=Release
     
     - os: osx
       compiler: clang
       sudo: required
-      env: CXX_COMPILER=clang++ C_COMPILER=clang BUILD_TYPE=Release QT_PATH=-DCMAKE_PREFIX_PATH=/usr/local/opt/qt5
+      env: BUILD_TYPE=Release QT_PATH=-DCMAKE_PREFIX_PATH=/usr/local/opt/qt5
 
 addons:
   apt:
@@ -49,7 +49,7 @@ before_script:
   - cmake --version
   - ${CXX_COMPILER} --version
   - ${C_COMPILER} --version
-  - cmake -DCMAKE_CXX_COMPILER=${CXX_COMPILER} -DCMAKE_C_COMPILER=${C_COMPILER} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ${QT_PATH} ..
+  - cmake -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ${QT_PATH} ..
 
 script:
   - cmake --build .
