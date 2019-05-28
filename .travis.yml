@@ -47,8 +47,8 @@ before_script:
   - mkdir build
   - cd build
   - cmake --version
-  - ${CXX_COMPILER} --version
-  - ${C_COMPILER} --version
+  - ${CXX} --version
+  - ${CC} --version
   - cmake -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC} -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ${QT_PATH} ..
 
 script:
