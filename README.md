@@ -1,5 +1,6 @@
 # Metronome
-A simple metronome made with Qt and Juce
+A simple metronome made with Qt and Juce<br>
+[![Build Status](https://travis-ci.com/witte/Metronome.svg?branch=master)](https://travis-ci.com/witte/Metronome)
 
 
 ## Dependencies
