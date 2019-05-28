@@ -1,22 +1,20 @@
 language: cpp
 
-os:
-  - linux
-  - osx
-
-compiler:
-  - gcc
-  - clang
-
-env: QT_BASE=510 CXX_COMPILER=g++-8 C_COMPILER=gcc-8 BUILD_TYPE=Release
+matrix:
+  fast_finish: true
+  include:
+    - os: linux
+      compiler: clang
+      sudo: required
+      dist: trusty
+      env: CXX_COMPILER=g++-8 C_COMPILER=gcc-8 BUILD_TYPE=Release
 
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
-        packages:
-          - gcc-8
-          - g++-8
+    packages:
+      - ninja-build
+      - gcc-8
+      - g++-8
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then  sudo add-apt-repository ppa:beineri/opt-qt-5.10.1-trusty -y                ; fi
