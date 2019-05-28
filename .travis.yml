@@ -11,6 +11,8 @@ matrix:
 
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - ninja-build
       - gcc-8
