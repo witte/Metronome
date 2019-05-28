@@ -20,6 +20,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - ninja-build
+      - libgl-dev
 #      - gcc-8
 #      - g++-8
 
