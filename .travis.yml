@@ -12,7 +12,7 @@ matrix:
     - os: osx
       compiler: clang
       sudo: required
-      env: CXX_COMPILER=clang C_COMPILER=clang BUILD_TYPE=Release QT_PATH=-DCMAKE_PREFIX_PATH=/usr/local/opt/qt5
+      env: CXX_COMPILER=clang++ C_COMPILER=clang BUILD_TYPE=Release QT_PATH=-DCMAKE_PREFIX_PATH=/usr/local/opt/qt5
 
 addons:
   apt:
