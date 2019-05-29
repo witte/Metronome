@@ -25,6 +25,13 @@ cmake .. -DCMAKE_PREFIX_PATH=/Path/to/your/qt/installation
 cmake --build .
 ```
 
+## Credits
+The click sample is a mix of these two files:<br>
+https://freesound.org/people/Noisehag/sounds/110549/<br>
+https://freesound.org/people/Agaxly/sounds/217482/
+
+The font used to display the bpm is Steve Matteson's Open Sans Condensed:<br>
+https://fonts.google.com/specimen/Open+Sans+Condensed
 
 ## License
 GPL-3.0
