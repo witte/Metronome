@@ -10,10 +10,10 @@
 
 int main (int argc, char* argv[])
 {
-    QCoreApplication::setApplicationName ("Metronome");
-    QCoreApplication::setOrganizationName ("witte");
-    QCoreApplication::setApplicationVersion ("0.0.1");
+    QCoreApplication::setOrganizationName   ("witte");
     QCoreApplication::setOrganizationDomain ("witte.github.io");
+    QCoreApplication::setApplicationName    (ProjectInfo::projectName);
+    QCoreApplication::setApplicationVersion (ProjectInfo::versionString);
 
     QCoreApplication::setAttribute (Qt::AA_EnableHighDpiScaling);
     QGuiApplication app (argc, argv);
