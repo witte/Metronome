@@ -8,7 +8,7 @@ Window
     visible: true
     width: 260
     height: 480
-    title: "Metronome!"
+    title: "Metronome"
 
     color: "#1A5FB4"
 
@@ -132,9 +132,8 @@ Window
             anchors.horizontalCenter: parent.horizontalCenter
             text: metronome.bpm.toFixed (2)
             color: "#fff"
-            font.family: "Mono"
             font.bold: true
-            font.pointSize: 16
+            font.pointSize: 33
         }
     }
 
