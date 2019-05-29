@@ -24,6 +24,10 @@ IF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         "JuceLibraryCode/include_juce_core.mm"
         "JuceLibraryCode/include_juce_events.mm"
     )
+
+    add_compile_definitions (
+        MACOSX_DEPLOYMENT_TARGET=10.10
+    )
 ENDIF (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 
 IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -34,7 +38,7 @@ IF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         "JuceLibraryCode/include_juce_events.cpp"
     )
 
-    add_compile_definitions(
+    add_compile_definitions (
         JUCE_ALSA=1
         JUCE_INCLUDE_ZLIB_CODE=1
     )
