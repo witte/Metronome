@@ -7,7 +7,7 @@ Window
     id: window
     visible: true
     width: 260
-    height: 480
+    height: 336
     title: "Metronome"
 
     color: "#1A5FB4"
