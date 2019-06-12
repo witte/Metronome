@@ -44,12 +44,28 @@ ENDIF (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 
 set (SOURCES
+        "r8brain-free-src/pffft.cpp"
+        "r8brain-free-src/r8bbase.cpp"
         "ClickSample.cpp"
         "Metronome.cpp"
         "Main.cpp"
         "Qml/qml.qrc"
 )
 set (HEADERS
+        "r8brain-free-src/CDSPBlockConvolver.h"
+        "r8brain-free-src/CDSPFIRFilter.h"
+        "r8brain-free-src/CDSPFracInterpolator.h"
+        "r8brain-free-src/CDSPHBDownsampler.h"
+        "r8brain-free-src/CDSPHBUpsampler.h"
+        "r8brain-free-src/CDSPProcessor.h"
+        "r8brain-free-src/CDSPRealFFT.h"
+        "r8brain-free-src/CDSPResampler.h"
+        "r8brain-free-src/CDSPSincFilterGen.h"
+        "r8brain-free-src/fft4g.h"
+        "r8brain-free-src/pffft.h"
+        "r8brain-free-src/r8bbase.h"
+        "r8brain-free-src/r8bconf.h"
+        "r8brain-free-src/r8butil.h"
         "JuceLibraryCode/AppConfig.h"
         "JuceLibraryCode/JuceHeader.h"
         "JUCE/juce_audio_basics/juce_audio_basics.h"

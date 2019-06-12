@@ -2,7 +2,9 @@
 
 #include <atomic>
 #include <QObject>
+#include "r8brain-free-src/CDSPResampler.h"
 #include "JuceHeader.h"
+
 
 class Metronome : public QObject, public AudioSource
 {
@@ -44,6 +46,10 @@ private:
     AudioDeviceManager m_deviceManager;
     AudioSourcePlayer m_audioSourcePlayer;
 
+    std::unique_ptr<r8b::CDSPResampler24> m_resampler {nullptr};
+    std::vector<float> m_click {0.0};
+    int m_clickLength {0};
+
     double m_minBpm {40};
     double m_maxBpm {280};
 
@@ -55,7 +61,6 @@ private:
     std::atomic<double> m_bpm {120.0};
 
     std::atomic_bool m_signalClick {false};
-    unsigned int m_isClicking {960};
 
     void calcCurrentSampleWithinPulse();
 

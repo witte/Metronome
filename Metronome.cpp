@@ -1,6 +1,7 @@
 #include "Metronome.h"
 #include "ClickSample.cpp"
 
+
 Metronome::Metronome (QObject* parent) : QObject (parent)
 {
     String audioError = m_deviceManager.initialise (0, 2, nullptr, true);
@@ -20,11 +21,27 @@ Metronome::~Metronome()
 
 void Metronome::prepareToPlay (int samplesPerBlockExpected, double sampleRate) noexcept
 {
+    // original click sound is in 48kHz, if the current sample rate
+    // is different than this we need to convert it
     if (!qFuzzyCompare (m_sampleRate, sampleRate))
     {
         m_sampleRate = sampleRate;
-        calcCurrentSampleWithinPulse();
+        int originalClickLength = static_cast<int>(m_originalClick.size());
+
+        m_resampler = std::make_unique<r8b::CDSPResampler24>(48000.0, m_sampleRate, originalClickLength);
+
+        m_clickLength = static_cast<int>(originalClickLength * sampleRate / 48000.0);
+
+        m_click.resize (static_cast<size_t>(m_clickLength));
+        m_resampler->oneshot (originalClickLength, m_originalClick.data(), originalClickLength, m_click.data(), m_clickLength);
     }
+    else
+    {
+        m_click = m_originalClick;
+        m_clickLength = static_cast<int>(m_click.size());
+    }
+
+    calcCurrentSampleWithinPulse();
 
     String message;
     message << "sampleRate is: " << sampleRate << newLine;
@@ -51,8 +68,7 @@ void Metronome::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) n
 
     for (int sample = 0; sample < bufferToFill.numSamples; ++sample)
     {
-        // 1334: magic number, the amount of samples in the click sample vector
-        float sampleValue = (currentSample < 1334) ? m_clickSample.at (static_cast<unsigned int>(currentSample)) : 0.0f;
+        float sampleValue = (currentSample < m_clickLength) ? m_click[ static_cast<unsigned int>(currentSample) ] : 0.0f;
 
         ch1[sample] = sampleValue;
         ch2[sample] = sampleValue;
@@ -66,7 +82,7 @@ void Metronome::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) n
             m_signalClick.store(true);
         }
     }
-    m_currentSample.store(currentSample);
+    m_currentSample.store (currentSample);
 }
 
 void Metronome::releaseResources()

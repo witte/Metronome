@@ -4,7 +4,7 @@
 // https://freesound.org/people/Noisehag/sounds/110549/
 // https://freesound.org/people/Agaxly/sounds/217482/
 
-static std::vector<float> m_clickSample //1334 samples!
+static std::vector<float> m_originalClick // original click sound
 {
     0.010935913771391f,
    -0.064732596278191f,
@@ -1344,3 +1344,4 @@ static std::vector<float> m_clickSample //1334 samples!
     0.000000049485799f,
     0.000000014039159f
 };
+
