@@ -133,7 +133,7 @@ Window
             text: metronome.bpm.toFixed (2)
             color: "#fff"
             font.bold: true
-            font.pointSize: 33
+            font.pixelSize: 33
         }
     }
 
