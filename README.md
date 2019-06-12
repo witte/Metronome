@@ -5,9 +5,21 @@ A simple metronome made with Qt and Juce<br>
 <div align="center"><img src="screenshot.png"/></div>
 
 ## Dependencies
-CMake: https://cmake.org/<br>
-Qt:    https://www.qt.io/<br>
-Juce:  https://github.com/WeAreROLI/JUCE (included)<br>
+
+<table>
+  <tr></tr>
+    <td>CMake:</td><td>https://cmake.org/</td>
+  </tr>
+  <tr>
+    <td>Qt:</td><td>https://www.qt.io/</td>
+  </tr>
+  <tr>
+    <td>Juce:</td><td>https://github.com/WeAreROLI/JUCE (included)</td>
+  </tr>
+  <tr>
+    <td>r8brain-free-src:</td><td>https://github.com/avaneev/r8brain-free-src (included)</td>
+  </tr>
+</table>
 
 Linux only: ALSA Development headers (libasound2-dev on Ubuntu)
 
